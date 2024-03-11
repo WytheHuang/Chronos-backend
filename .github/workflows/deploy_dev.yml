@@ -1,0 +1,33 @@
+name: Deploy to ec2 dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy_to_ec2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+
+      - name: Deploy to ec2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_EC2_IP }}
+          username: ${{ secrets.DEV_EC2_USERNAME }}
+          key: ${{ secrets.DEV_EC2_KEY }}
+          script: |
+            cd ~/AISecretary-backend-PVEEC
+            echo "${{ secrets.DEV_DOTENV }}" > ./dotenv/.env.dev
+            export DOT_ENV_PATH=.env.dev
+            export DJANGO_SETTINGS_MODULE=backend.config.settings.docker
+            git checkout dev
+            git pull origin dev
+            docker compose -f docker-compose/docker-compose-dev.yml down
+            docker build -f DockerFile -t backend .
+            docker compose -f docker-compose/docker-compose-dev.yml up -d

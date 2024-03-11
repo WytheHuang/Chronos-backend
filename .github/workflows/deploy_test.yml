@@ -1,0 +1,59 @@
+name: Deploy to test
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  deploy_to_server_1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Deploy to server 1
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TEST_EC2_IP_1 }}
+          username: ${{ secrets.TEST_EC2_USERNAME }}
+          key: ${{ secrets.TEST_EC2_KEY }}
+          script: |
+            cd ~/AISecretary-backend-PVEEC
+            echo "${{ secrets.TEST_DOTENV }}" > ./dotenv/.env.test
+            export DOT_ENV_PATH=.env.test
+            export DJANGO_SETTINGS_MODULE=backend.config.settings.docker
+            git checkout test
+            git pull origin test
+            docker compose -f docker-compose/docker-compose-test-flower.yml down
+            docker build -f DockerFile -t backend .
+            docker compose -f docker-compose/docker-compose-test-flower.yml up -d
+
+  deploy_to_server_2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Deploy to server 2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TEST_EC2_IP_2 }}
+          username: ${{ secrets.TEST_EC2_USERNAME }}
+          key: ${{ secrets.TEST_EC2_KEY }}
+          script: |
+            cd ~/AISecretary-backend-PVEEC
+            echo "${{ secrets.TEST_DOTENV }}" > ./dotenv/.env.test
+            export DOT_ENV_PATH=.env.test
+            export DJANGO_SETTINGS_MODULE=backend.config.settings.docker
+            git checkout test
+            git pull origin test
+            docker compose -f docker-compose/docker-compose-test-worker.yml down
+            docker build -f DockerFile -t backend .
+            docker compose -f docker-compose/docker-compose-test-worker.yml up -d

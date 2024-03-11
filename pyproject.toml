@@ -1,0 +1,102 @@
+[tool.poetry]
+authors = [""]
+description = ""
+name = ""
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+argon2-cffi = "^23.1.0"
+boto3 = "^1.34.19"
+celery = "^5.3.6"
+colorlog = "^6.8.0"
+cryptography = "^41.0.7"
+django = "^4.2.8"
+django-allauth = "^0.59.0"
+django-celery-beat = "^2.5.0"
+django-celery-results = "2.3.1"
+django-cors-headers = "^4.3.1"
+django-debug-toolbar = "^4.2.0"
+django-extensions = "^3.2.3"
+django-ninja-extra = "^0.20.2"
+django-ninja-jwt = "^5.2.10"
+djangorestframework = "^3.14.0"
+docx = "^0.2.4"
+feedparser = "^6.0.11"
+flower = "^2.0.1"
+langchain = "^0.1.0"
+langchain-community = "^0.0.13"
+langchain-openai = "^0.0.2.post1"
+openai = "1.7.2"
+pdfplumber = "^0.10.3"
+psycopg2-binary = "^2.9.9"
+python = "3.11.*"
+python-docx = "^1.1.0"
+python-dotenv = "^1.0.0"
+pytz = "^2023.3.post1"
+qdrant-client = "^1.7.0"
+redis = "^5.0.1"
+tiktoken = "^0.5.2"
+uvicorn = "^0.25.0"
+
+[tool.poetry.group.lint.dependencies]
+black = "^23.12.0"
+ruff = "^0.1.9"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.ruff]
+exclude = [
+  ".venv",
+  "_venv",
+  "venv",
+  ".git",
+  ".vscode",
+  "*/migrations/*",
+]
+ignore = [
+  # https://docs.astral.sh/ruff/rules/#rules,
+  "D100",
+  "D104",
+  "D106",
+  "E501",
+  "DJ001",
+  "Q000",
+  "TID252",
+  "ERA",
+  "TCH",
+  "EM102",
+  "PGH003",
+  "ANN101",
+  "ANN102",
+  "ANN201",
+  "ANN401",
+  "TRY003",
+  "EM101",
+  "TD003",
+  "A003",
+  "RUF001",
+  "RUF012",
+]
+line-length = 120
+select = [
+  # https://docs.astral.sh/ruff/rules/#rules
+  "ALL",
+]
+target-version = "py311"
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.isort]
+force-single-line = true
+lines-after-imports = 2
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]

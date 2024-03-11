@@ -1,0 +1,51 @@
+services:
+  backend:
+    image: backend
+    ports:
+      - "8000:8000"
+    entrypoint: "sh docker-entrypoint/django-entrypoint.sh"
+    env_file:
+      - ../dotenv/.env.dev
+    volumes:
+      - ~/AISecretary-backend-PVEEC/dotenv:/dotenv
+      - ~/AISecretary-backend-PVEEC/logs:/logs
+    restart: unless-stopped
+    healthcheck:
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 1m
+      test: curl -f http://localhost:8000/api/health_check/ || exit 1
+    environment:
+      - DOT_ENV_PATH=.env.dev
+      - DJANGO_SETTINGS_MODULE=backend.config.settings.docker
+
+  celery_worker:
+    image: backend
+    depends_on:
+      backend:
+        condition: service_healthy
+    entrypoint: "sh docker-entrypoint/celery-entrypoint.sh"
+    env_file:
+      - ../dotenv/.env.dev
+    volumes:
+      - ~/AISecretary-backend-PVEEC/dotenv:/dotenv
+    restart: unless-stopped
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.docker
+
+  celery_flower:
+    image: backend
+    ports:
+      - "5555:5555"
+    depends_on:
+      celery_worker:
+        condition: service_started
+    entrypoint: "sh docker-entrypoint/flower-entrypoint.sh"
+    env_file:
+      - ../dotenv/.env.dev
+    volumes:
+      - ~/AISecretary-backend-PVEEC/dotenv:/dotenv
+    restart: unless-stopped
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.docker
