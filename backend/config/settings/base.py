@@ -1,4 +1,5 @@
 """Base settings to build other settings files upon."""
+
 import os
 from datetime import datetime
 from datetime import timedelta
@@ -83,7 +84,6 @@ APPS = [
 ]
 LOCAL_APPS = [
     "core",
-    "pveec",
 ]
 INSTALLED_APPS = APPS + LOCAL_APPS
 
