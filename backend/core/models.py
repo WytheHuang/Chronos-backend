@@ -54,6 +54,9 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
     is_delete = models.BooleanField(default=False)
 
+    last_login_ip = models.CharField(max_length=255, blank=True, null=True, default=None)
+    last_login_time = models.DateTimeField(blank=True, null=True, default=None)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS: ClassVar = []
 

@@ -1,11 +1,8 @@
 """Base settings to build other settings files upon."""
 
-import json
 import os
 from datetime import timedelta
 from pathlib import Path
-
-from botocore.exceptions import ClientError
 
 from dotenv import load_dotenv
 
@@ -76,8 +73,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 # APPS
 # ------------------------------------------------------------------------------
 APPS = [
-    # "jet",
-    # "jet.dashboard",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
