@@ -1,10 +1,9 @@
 from django.http import HttpRequest
 from ninja.openapi.docs import Redoc
 from ninja_extra import NinjaExtraAPI
-from pveec import apis as pveec_apis
 
 from config.auth import AuthController
-
+from chatbot import apis as chatbot_apis
 
 api = NinjaExtraAPI(
     title="Note App Backend",
@@ -36,7 +35,4 @@ async def health_check(request: HttpRequest):  # noqa: ARG001
 
 api.register_controllers(AuthController)
 
-api.register_controllers(pveec_apis.CategoryModelEditController)
-api.register_controllers(pveec_apis.FileUploadLogModelEditController)
-api.register_controllers(pveec_apis.FileApiController)
-api.register_controllers(pveec_apis.QAApiController)
+api.register_controllers(chatbot_apis.ChatbotApiController)

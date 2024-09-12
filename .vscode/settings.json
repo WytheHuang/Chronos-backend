@@ -14,5 +14,19 @@
    "[toml]": {
       "editor.tabSize": 2,
       "editor.formatOnType": true,
-   }
+   },
+   "python.analysis.extraPaths": [
+      "./backend",
+   ],
+   "cSpell.words": [
+      "allauth",
+      "botocore",
+      "colorlog",
+      "corsheaders",
+      "dotenv",
+      "OPENAI",
+      "Redoc",
+      "SOCIALACCOUNT",
+      "TRALLING"
+   ]
 }
