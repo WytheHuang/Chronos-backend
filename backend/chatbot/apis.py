@@ -90,7 +90,7 @@ class ChatbotApiController:
         except models.Conversation.DoesNotExist as err:
             raise core_exceptions.Http404NotFoundException from err
 
-        return models.Message.objects.filter(conversation=conversation).order_by("-created_at").values()
+        return models.Message.objects.filter(conversation=conversation).order_by("created_at").values()
 
     @route.post(
         "/{conversation_id}",
