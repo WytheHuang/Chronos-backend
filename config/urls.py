@@ -12,14 +12,10 @@ from .api import api
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    #
     path("", lambda request: redirect("admin/")),  # noqa: ARG005
-    #
     path("accounts/", include("allauth.urls")),
-    #
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
-    #
     path("api/", api.urls, name="api_root"),  # type: ignore
 ]
 if settings.DEBUG:

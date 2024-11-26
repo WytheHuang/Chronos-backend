@@ -1,14 +1,15 @@
 [tool.poetry]
 authors = ["Wythe Huang <wythehuang@icloud.com>"]
-description = ""
-name = ""
+description = "chronos-backend"
+name = "Chronos-backend"
+package-mode = false
 readme = "README.md"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
 argon2-cffi = "^23.1.0"
 boto3 = "^1.34.19"
-celery = "^5.3.6"
+celery = "5.3.6"
 colorlog = "^6.8.0"
 cryptography = "^41.0.7"
 django = "^4.2.10"
@@ -20,6 +21,8 @@ django-debug-toolbar = "^4.2.0"
 django-extensions = "^3.2.3"
 django-ninja-extra = "^0.20.2"
 django-ninja-jwt = "^5.2.10"
+django-otp = "^1.5.4"
+django-query-inspector = "^1.3.0"
 djangorestframework = "^3.14.0"
 feedparser = "^6.0.11"
 flower = "^2.0.1"
@@ -28,11 +31,18 @@ python = "3.11.*"
 python-dotenv = "^1.0.0"
 pytz = "^2023.3.post1"
 uvicorn = "^0.30.6"
-django-otp = "^1.5.4"
 
 [tool.poetry.group.lint.dependencies]
 black = "^23.12.0"
-ruff = "^0.1.9"
+isort = "^5.13.2"
+pyright = "^1.1.389"
+ruff = "^0.7.4"
+
+[tool.poetry.group.dev.dependencies]
+django-types = "^0.19.1"
+djangorestframework-types = "^0.8.0"
+pre-commit = "^4.0.1"
+uv = "^0.5.2"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
@@ -47,10 +57,15 @@ exclude = [
   ".vscode",
   "*/migrations/*",
 ]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
 ignore = [
-  # https://docs.astral.sh/ruff/rules/#rules,
+  # https://docs.astral.sh/ruff/rules/#rules
   "D100",
   "D104",
+  "D105",
   "D106",
   "E501",
   "DJ001",
@@ -60,6 +75,11 @@ ignore = [
   "TCH",
   "EM102",
   "PGH003",
+  "C901",
+  "PLR0912",
+  "PLR0913",
+  "PLR0915",
+  "PT009",
   "ANN101",
   "ANN102",
   "ANN201",
@@ -70,24 +90,77 @@ ignore = [
   "A003",
   "RUF001",
   "RUF012",
+  "FBT003",
+  "PD901",
+  "BLE001",
+  "N818",
+  "DTZ001",
+  "W191",
+  "I",
+  "DJ008",
+  "INP001",
 ]
-line-length = 120
 select = [
   # https://docs.astral.sh/ruff/rules/#rules
   "ALL",
 ]
-target-version = "py311"
 
-[tool.ruff.flake8-tidy-imports]
+[tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
+detect-same-package = true
 force-single-line = true
+known-third-party = [
+  # "django",
+  "asgiref",
+  "ninja_extra",
+]
 lines-after-imports = 2
+split-on-trailing-comma = true
 
 [tool.black]
 line-length = 120
 target-version = ["py311"]
+
+[tool.pyright]
+ignore = [
+  ".venv",
+  "_venv",
+  "venv",
+  ".git",
+  ".vscode",
+  "*/migrations/*",
+]
+include = [
+  "./chronos-backend",
+]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+
+[tool.isort]
+force_single_line = true
+known_config = [
+  "config",
+]
+known_first_party = [
+  "chronos-backend",
+  "core",
+]
+line_length = 119
+lines_after_imports = 2
+profile = "black"
+py_version = 311
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "CONFIG", "FIRSTPARTY", "LOCALFOLDER"]
+skip_glob = [
+  ".venv",
+  "_venv",
+  "venv",
+  ".git",
+  ".vscode",
+  "**/migrations/**",
+]
+split_on_trailing_comma = true

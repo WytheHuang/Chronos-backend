@@ -1,8 +1,6 @@
 import datetime
+
 import pytz
-
-
-from core.models import User
 from django.core.handlers.wsgi import WSGIRequest
 from ninja_extra import ControllerBase
 from ninja_extra import api_controller
@@ -12,6 +10,8 @@ from config.schemas import TokenObtainPairInputSchema
 from config.schemas import TokenObtainPairOutputSchema
 from config.schemas import TokenRefreshInputSchema
 from config.schemas import TokenRefreshOutputSchema
+
+from core.models import User
 
 
 @api_controller("/auth", tags=["auth"])
@@ -39,7 +39,7 @@ class AuthController(ControllerBase):
 
         login_time = datetime.datetime.now(pytz.timezone("Asia/Taipei"))
 
-        ip_address = request.META.get("HTTP_X_FORWARDED_FOR")
+        ip_address = request.headers.get("x-forwarded-for")
         ip_address = ip_address.split(",")[0] if ip_address else request.META.get("REMOTE_ADDR")
 
         User.objects.filter(email=user_token._user.email).update(  # type: ignore # noqa: SLF001

@@ -16,6 +16,7 @@ class AccountAdapter(DefaultAccountAdapter):
     This class extends the DefaultAccountAdapter, providing custom logic to determine
     if new account signups are allowed based on application settings.
     """
+
     def is_open_for_signup(self: AccountAdapter, request: HttpRequest) -> bool:  # noqa: ARG002
         """Determines whether new account registrations are currently permitted.
 

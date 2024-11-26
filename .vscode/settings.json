@@ -4,19 +4,19 @@
    "python.analysis.typeCheckingMode": "basic",
    "editor.formatOnSave": true,
    "black-formatter.args": [
-      "--line-length=120",
+      "--line-length=120"
    ],
    "[python]": {
       "editor.tabSize": 4,
       "editor.defaultFormatter": "ms-python.black-formatter",
-      "editor.formatOnType": true,
+      "editor.formatOnType": true
    },
    "[toml]": {
       "editor.tabSize": 2,
-      "editor.formatOnType": true,
+      "editor.formatOnType": true
    },
    "python.analysis.extraPaths": [
-      "./backend",
+      "./backend"
    ],
    "cSpell.words": [
       "allauth",

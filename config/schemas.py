@@ -1,8 +1,9 @@
-from core.models import User
 from ninja import Schema
 from ninja_jwt import schema
 from ninja_jwt.tokens import AccessToken
 from ninja_jwt.tokens import RefreshToken
+
+from core.models import User
 
 
 class UserSchema(Schema):
