@@ -8,7 +8,10 @@ RUN pip install -r /requirements.txt
 COPY ./manage.py /manage.py
 COPY ./run_asgi.py /run_asgi.py
 COPY ./docker-entrypoint /docker-entrypoint
-COPY ./dotenv /dotenv
+
+RUN chmod +x docker-entrypoint/celery-entrypoint.sh
+RUN chmod +x docker-entrypoint/django-entrypoint.sh
+RUN chmod +x docker-entrypoint/flower-entrypoint.sh
 
 RUN mkdir /logs
 
