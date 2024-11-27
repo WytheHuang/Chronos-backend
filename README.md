@@ -35,7 +35,8 @@ Chronos-backend
 │  │  ├─ apis.py
 │  │  ├─ apps.py
 │  │  ├─ migrations
-│  │  │  └─ __init__.py
+│  │  │  ├─ __init__.py
+│  │  │  └─ ...
 │  │  ├─ models.py
 │  │  ├─ schemas.py
 │  │  ├─ signals.py
@@ -53,9 +54,8 @@ Chronos-backend
 │     ├─ forms.py
 │     ├─ managers.py
 │     ├─ migrations
-│     │  ├─ 0001_initial.py
-│     │  ├─ 0002_user_last_login_ip_user_last_login_time.py
-│     │  └─ __init__.py
+│     │  ├─ __init__.py
+│     │  └─ ...
 │     ├─ models.py
 │     ├─ schemas.py
 │     ├─ tasks.py
@@ -81,6 +81,8 @@ Chronos-backend
 │  ├─ django-entrypoint.sh
 │  └─ flower-entrypoint.sh
 ├─ dotenv
+├─ erd-full.dot
+├─ erd-full.png
 ├─ erd.dot
 ├─ erd.png
 ├─ manage.py
@@ -88,4 +90,5 @@ Chronos-backend
 ├─ pyproject.toml
 ├─ requirements.txt
 └─ run_asgi.py
+
 ```

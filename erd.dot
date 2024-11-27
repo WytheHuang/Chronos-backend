@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2024-11-26 00:38
+  // Created: 2024-11-26 23:58
   // Cli Options: -a -g -o erd.dot
 
   fontname = "Roboto"
@@ -32,96 +32,6 @@ digraph model_graph {
           >
     color=olivedrab4
     style="rounded"
-
-    django_contrib_auth_models_AbstractUser [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      AbstractUser<BR/>&lt;<FONT FACE="Roboto"><I>AbstractBaseUser,PermissionsMixin</I></FONT>&gt;
-      </B></FONT></TD></TR>
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">date_joined</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">DateTimeField</FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">email</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">EmailField</FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">first_name</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">is_active</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">BooleanField</FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">is_staff</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">BooleanField</FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto"><I>is_superuser</I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto"><I>BooleanField</I></FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>last_login</I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>DateTimeField</I></FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">last_name</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto"><I>password</I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto"><I>CharField</I></FONT>
-      </TD></TR>
-
-
-
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">username</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">CharField</FONT>
-      </TD></TR>
-
-
-      </TABLE>
-      >]
 
     core_models_User [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
@@ -382,9 +292,25 @@ digraph model_graph {
 
 
       <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">name</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+
+
+
+      <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT COLOR="#7B7B7B" FACE="Roboto">record_file_s3_key</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+
+
+
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">state</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
       </TD></TR>
 
 
@@ -511,26 +437,8 @@ digraph model_graph {
   core_models_BaseModel -> core_models_User
   [label=" deleted_by_user (%(class)s_deleted_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  chatbot_models_Conversation -> core_models_User
-  [label=" created_by_user (conversation_created_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  chatbot_models_Conversation -> core_models_User
-  [label=" updated_by_user (conversation_updated_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  chatbot_models_Conversation -> core_models_User
-  [label=" deleted_by_user (conversation_deleted_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
-
   chatbot_models_Conversation -> core_models_BaseModel
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
-
-  chatbot_models_Message -> core_models_User
-  [label=" created_by_user (message_created_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  chatbot_models_Message -> core_models_User
-  [label=" updated_by_user (message_updated_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  chatbot_models_Message -> core_models_User
-  [label=" deleted_by_user (message_deleted_by_user)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   chatbot_models_Message -> chatbot_models_Conversation
   [label=" conversation (messages)"] [arrowhead=none, arrowtail=dot, dir=both];

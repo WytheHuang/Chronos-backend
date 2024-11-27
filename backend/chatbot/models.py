@@ -23,9 +23,6 @@ class Conversation(BaseModel):
     record_file_s3_key = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=10, choices=State.choices, default=State.COMPLETE)
 
-    class Meta:
-        db_table = "conversation"
-
     def __str__(self) -> str:
         return f"Conversation {self.id}"
 
@@ -51,7 +48,10 @@ class Message(BaseModel):
     text = models.TextField()
 
     class Meta:
-        db_table = "message"
+        indexes = [
+            models.Index(fields=["conversation"]),
+            models.Index(fields=["created_at"]),
+        ]
 
     def __str__(self) -> str:
         return f"Message {self.id}"
