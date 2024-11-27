@@ -52,3 +52,9 @@ class UserRigisterResponseSchema(Schema):
     """User register response schema."""
 
     email: str
+
+
+class UserUpdateNameSchema(Schema):
+    """User update request schema."""
+
+    name: str

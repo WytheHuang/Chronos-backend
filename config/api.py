@@ -1,9 +1,11 @@
-from chatbot import apis as chatbot_apis
 from django.http import HttpRequest
 from ninja.openapi.docs import Redoc
 from ninja_extra import NinjaExtraAPI
 
 from config.auth import AuthController
+
+from chatbot import apis as chatbot_apis
+from core import apis as core_apis
 
 
 api = NinjaExtraAPI(
@@ -35,6 +37,8 @@ async def health_check(request: HttpRequest):  # noqa: ARG001
 
 
 api.register_controllers(AuthController)
+
+api.register_controllers(core_apis.UserEditController)
 
 # api.register_controllers(chatbot_apis.conversation_crud_controller)
 # api.register_controllers(chatbot_apis.message_crud_controller)

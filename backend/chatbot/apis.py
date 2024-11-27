@@ -75,6 +75,31 @@ class ChatbotApiController:
         """List chatbot conversations."""
         return models.Conversation.objects.filter(created_by_user=request.user).values()
 
+    @route.put(
+        "/{conversation_id}",
+        response={
+            200: schemas.PutConversationNameResponseSchema,
+            401: core_schemas.Http401UnauthorizedSchema,
+            404: core_schemas.Http404NotFoundSchema,
+        },
+    )
+    def update_chatbot(
+        self,
+        request: WSGIRequest,
+        conversation_id: UUID,
+        body: schemas.PutConversationNameRequestSchema,
+    ):
+        """Update the name of a chatbot conversation."""
+        try:
+            conversation = models.Conversation.objects.get(id=conversation_id)
+        except models.Conversation.DoesNotExist as err:
+            raise core_exceptions.Http404NotFoundException from err
+
+        conversation.name = body.name  # type: ignore
+        conversation.save(request.user)  # type: ignore
+
+        return conversation
+
     @route.get(
         "/{conversation_id}",
         response={

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from ninja import ModelSchema
 from ninja import Schema
 
@@ -68,4 +70,18 @@ class MessageResponseSchema(ModelSchema):
 class ChatbotStateResponseSchema(Schema):
     """Chatbot state response schema."""
 
+    state: models.Conversation.State
+
+
+class PutConversationNameRequestSchema(Schema):
+    """Conversation name schema for PUT method."""
+
+    name: str
+
+
+class PutConversationNameResponseSchema(Schema):
+    """Conversation name schema for PUT method."""
+
+    id: UUID
+    name: str
     state: models.Conversation.State

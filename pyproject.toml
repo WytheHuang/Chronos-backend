@@ -147,8 +147,9 @@ known_config = [
   "config",
 ]
 known_first_party = [
-  "chronos-backend",
   "core",
+  "backend",
+  "chatbot",
 ]
 line_length = 119
 lines_after_imports = 2
