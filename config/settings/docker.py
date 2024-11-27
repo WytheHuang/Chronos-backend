@@ -14,7 +14,9 @@ CORS_ALLOWED_METHODS = [
 CORS_ALLOWED_HEADERS = [
     *list(default_headers),
 ]
-CSRF_TRUSTED_ORIGINS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://chronos.clonewebs.net",
+]
 
 # CACHES
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
