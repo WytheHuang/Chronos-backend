@@ -14,9 +14,7 @@ CORS_ALLOWED_METHODS = [
 CORS_ALLOWED_HEADERS = [
     *list(default_headers),
 ]
-CSRF_TRUSTED_ORIGINS = [
-    "https://genihelper-pveec-backend.ainsight.chat",
-]
+CSRF_TRUSTED_ORIGINS = ["*"]
 
 # CACHES
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
