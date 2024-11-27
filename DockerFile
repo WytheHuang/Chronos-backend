@@ -12,4 +12,5 @@ COPY ./dotenv /dotenv
 
 RUN mkdir /logs
 
-ADD ./backend /backend
+COPY ./backend /backend
+COPY ./config /config
