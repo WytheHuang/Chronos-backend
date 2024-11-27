@@ -3,7 +3,6 @@ from uuid import UUID
 
 from django.core.handlers.wsgi import WSGIRequest
 from ninja import Form
-from ninja.files import UploadedFile
 from ninja_extra import api_controller
 from ninja_extra import route
 from ninja_extra.permissions import IsAuthenticated
@@ -45,19 +44,24 @@ class ChatbotApiController:
     @route.post(
         "",
         response={
-            200: Any,
+            200: schemas.CreateConversationSchema,
             401: core_schemas.Http401UnauthorizedSchema,
             404: core_schemas.Http404NotFoundSchema,
         },
     )
-    def wip_new_chatbot(
+    def new_chatbot(
         self,
-        request: WSGIRequest,  # noqa: ARG002
-        name: Form[str],  # noqa: ARG002
-        file: UploadedFile,  # noqa: ARG002
+        request: WSGIRequest,
+        name: Form[str],
+        file: Form[str],
     ) -> Any:
         """Create a new chatbot conversation."""
-        return models.Conversation.objects.create()
+        conversation = models.Conversation(
+            name=name,
+            record_file_s3_key=file,
+        )
+        conversation.create(request.user)  # type: ignore
+        return conversation
 
     @route.get(
         "",
