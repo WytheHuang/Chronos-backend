@@ -3,7 +3,6 @@ import sys
 import warnings
 from pathlib import Path
 
-import django
 from celery import Celery
 
 
@@ -16,8 +15,6 @@ sys.path.append(str(current_path / "backend"))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 os.environ.setdefault("FLOWER_UNAUTHENTICATED_API", "true")
-
-django.setup()
 
 app = Celery("config")
 

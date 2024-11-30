@@ -3,6 +3,7 @@ from uuid import UUID
 
 from django.core.handlers.wsgi import WSGIRequest
 from ninja import Form
+from ninja.files import UploadedFile
 from ninja_extra import api_controller
 from ninja_extra import route
 from ninja_extra.permissions import IsAuthenticated
@@ -53,12 +54,29 @@ class ChatbotApiController:
         self,
         request: WSGIRequest,
         name: Form[str],
-        file: Form[str],
+        file: UploadedFile,
     ) -> Any:
         """Create a new chatbot conversation."""
+        with file.open() as f:
+            record = f.file.read().decode("utf-8")
+
+        if record == "":
+            assistant = core_utils.OPENAI_CLIENT.beta.assistants.create(
+                name=name,
+                instructions="",
+                model="gpt-4o-2024-11-20",
+            )
+        else:
+            assistant = core_utils.OPENAI_CLIENT.beta.assistants.create(
+                name=name,
+                instructions=f"Your conversation with the chatbot. please reply message like following record content 爺爺's role\n\n {record}",
+                model="gpt-4o-2024-11-20",
+            )
+
         conversation = models.Conversation(
             name=name,
-            record_file_s3_key=file,
+            record_file_s3_key=file.name,
+            assistant_id=assistant.id,
         )
         conversation.create(request.user)  # type: ignore
         return conversation
@@ -73,7 +91,7 @@ class ChatbotApiController:
     )
     def list_chatbot(self, request: WSGIRequest):
         """List chatbot conversations."""
-        return models.Conversation.objects.filter(created_by_user=request.user).values()
+        return models.Conversation.objects.filter(created_by_user=request.user).order_by("name").values()
 
     @route.put(
         "/{conversation_id}",

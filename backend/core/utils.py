@@ -1,6 +1,7 @@
 from types import ModuleType
 from uuid import UUID
 
+from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import transaction
@@ -8,12 +9,16 @@ from django.db.utils import IntegrityError
 from ninja_extra import api_controller
 from ninja_extra import route
 from ninja_extra.permissions import IsAuthenticated
+from openai import OpenAI
 
 from core.authentication import CustomJWTAuth
 from core.models import BaseModel
 
 from . import exceptions
 from . import schemas
+
+
+OPENAI_CLIENT = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 
 def generate_crud_controller(
