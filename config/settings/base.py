@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 BASE_DIR = ROOT_DIR
 
-DOT_ENV_PATH = os.environ.get("DOT_ENV_PATH", default=f"{ROOT_DIR}/dotenv/.env.local")
+DOT_ENV_PATH = os.environ.get("DOT_ENV_PATH", default=f"{ROOT_DIR}/dotenv/.env")
 if DOT_ENV_PATH != "prod":
     load_dotenv(DOT_ENV_PATH)
 
@@ -456,7 +456,7 @@ CELERY_ENABLE_UTC = True
 CELERY_TIMEZONE = "Asia/Taipei"
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-CELERY_BROKER_URL = f"{os.environ.get('RABBITMQ_PROTOCOL')}://{os.environ.get('RABBITMQ_USER')}:{os.environ.get('RABBITMQ_PWD')}@{os.environ.get('RABBITMQ_URL')}:{os.environ.get('RABBITMQ_PORT')}"
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"
 
@@ -473,8 +473,5 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_S3_BUCKET_NAME = os.environ.get("AWS_S3_BUCKET_NAME")
 AWS_REGION = os.environ.get("AWS_REGION")
-
-MAIL_USER = os.environ.get("MAIL_USER")
-MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
