@@ -22,6 +22,7 @@ class Conversation(BaseModel):
     name = models.CharField(max_length=255, null=True, blank=True)
     record_file_s3_key = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=10, choices=State.choices, default=State.COMPLETE)
+    assistant_id = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"Conversation {self.id}"

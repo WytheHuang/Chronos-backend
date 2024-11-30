@@ -478,6 +478,3 @@ MAIL_USER = os.environ.get("MAIL_USER")
 MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-OPENAI_GPT_4_TURBO_MODEL_NAME = "gpt-4-turbo"
-OPENAI_GPT_35_TURBO_MODEL_NAME = "gpt-3.5-turbo"
-OPENAI_GPT_4O_MODEL_NAME = "gpt-4o"
