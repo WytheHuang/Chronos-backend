@@ -4,7 +4,7 @@ description = "chronos-backend"
 name = "Chronos-backend"
 package-mode = false
 readme = "README.md"
-version = "0.1.0"
+version = "1.0.0"
 
 [tool.poetry.dependencies]
 argon2-cffi = "^23.1.0"
@@ -31,8 +31,8 @@ psycopg2-binary = "^2.9.9"
 python = "3.11.*"
 python-dotenv = "^1.0.0"
 pytz = "^2023.3.post1"
-uvicorn = "^0.30.6"
 redis = "^5.2.0"
+uvicorn = "^0.30.6"
 
 [tool.poetry.group.lint.dependencies]
 black = "^23.12.0"

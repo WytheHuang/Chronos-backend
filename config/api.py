@@ -10,7 +10,7 @@ from core import apis as core_apis
 
 api = NinjaExtraAPI(
     title="Chronos Backend",
-    version="0.1.0",
+    version="1.0.0",
     description="chronos backend",
     app_name="chronos-backend",
     docs=Redoc(),
