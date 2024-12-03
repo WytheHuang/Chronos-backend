@@ -55,6 +55,7 @@ class ChatbotApiController:
         request: WSGIRequest,
         name: Form[str],
         file: UploadedFile,
+        target: Form[str],
     ) -> Any:
         """Create a new chatbot conversation."""
         with file.open() as f:
@@ -69,7 +70,7 @@ class ChatbotApiController:
         else:
             assistant = core_utils.OPENAI_CLIENT.beta.assistants.create(
                 name=name,
-                instructions=f"Your conversation with the chatbot. please reply message like following record content 爺爺's role\n\n {record}",
+                instructions=f"Your conversation with the chatbot. you need to reply message like style of following record content {target}'s role\n\n {record}",
                 model="gpt-4o-2024-11-20",
             )
 
