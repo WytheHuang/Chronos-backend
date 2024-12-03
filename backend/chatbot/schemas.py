@@ -85,3 +85,9 @@ class PutConversationNameResponseSchema(Schema):
     id: UUID
     name: str
     state: models.Conversation.State
+
+
+class DeleteConversationSchema(Schema):
+    """Conversation schema for DELETE method."""
+
+    id: UUID

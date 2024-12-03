@@ -81,6 +81,28 @@ class ChatbotApiController:
         conversation.create(request.user)  # type: ignore
         return conversation
 
+    @route.delete(
+        "/{conversation_id}",
+        response={
+            200: schemas.DeleteConversationSchema,
+            401: core_schemas.Http401UnauthorizedSchema,
+            404: core_schemas.Http404NotFoundSchema,
+        },
+    )
+    def delete_chatbot(
+        self,
+        request: WSGIRequest,
+        conversation_id: UUID,
+    ) -> Any:
+        """Delete a chatbot conversation."""
+        try:
+            conversation = models.Conversation.objects.get(id=conversation_id)
+        except models.Conversation.DoesNotExist as err:
+            raise core_exceptions.Http404NotFoundException from err
+
+        conversation.delete(request.user)  # type: ignore
+        return conversation
+
     @route.get(
         "",
         response={
